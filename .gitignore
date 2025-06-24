@@ -24,6 +24,8 @@ pyneng.pdf
 .Trashes
 ehthumbs.db
 Thumbs.db
+pyneng.egg-info/
+build/
 
 # Vim undo files. Python#
 # #######################
@@ -34,5 +36,7 @@ Thumbs.db
 # VSCode files
 .vscode/
 
-# Virual environments
+# Virtual environments
 venv/
+
+tasks.png
