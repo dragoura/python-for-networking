@@ -40,3 +40,11 @@ with open(file_name, "r") as f:
 #         if not line.startswith('!'):
 #             if not any([word in line for word in ignore]):
 #                 print(line.rstrip('\n'))
+
+# # with set
+# with open(file_name) as f:
+#     for line in f:
+#         words = line.split()
+#         words_intersect = set(words) & set(ignore)
+#         if not line.startswith("!") and not words_intersect:
+#             print(line.rstrip())
