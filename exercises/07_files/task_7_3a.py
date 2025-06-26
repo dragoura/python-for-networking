@@ -40,3 +40,18 @@
 Ограничение: Все задания надо выполнять используя только пройденные темы.
 
 """
+
+template = "{:<9}{:<20}{}"
+mac_address_table = []
+
+with open("CAM_table.txt", "r") as f:
+    for line in f:
+        line_list = line.strip().split()
+        if line_list and line_list[0].isdigit():
+            mac_address_line = [int(line_list[0]), line_list[1], line_list[3]]
+            mac_address_table.append(mac_address_line)
+
+mac_address_table.sort()
+
+for line in mac_address_table:
+    print(template.format(line[0], line[1], line[2]))
