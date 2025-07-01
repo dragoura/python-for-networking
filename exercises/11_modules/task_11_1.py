@@ -44,6 +44,18 @@ def parse_cdp_neighbors(command_output):
     Плюс учимся работать с таким выводом.
     """
 
+    device_graph = {}
+    for line in command_output.split('\n'):
+        if 'show cdp neighbors' in line:
+            main_device = line[0:line.find('>')]
+        else:
+            table_line = line.split()
+            if len(table_line) >= 5 and table_line[3].isdigit():
+                neighbor, local_intf, local_intf_n, *_, neigh_intf, neigh_intf_n = table_line
+                device_graph[(main_device, local_intf + local_intf_n)] = (neighbor, neigh_intf + neigh_intf_n)
+
+    return device_graph
+
 
 if __name__ == "__main__":
     with open("sh_cdp_n_sw1.txt") as f:
