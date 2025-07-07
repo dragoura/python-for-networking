@@ -24,3 +24,22 @@ interface Loopback0
 
 Проверить работу функции на примере файла config_r1.txt.
 """
+import re
+from pprint import pprint
+
+
+def get_ints_without_description(filename):
+    result = []
+
+    with open(filename) as f:
+        blocks = re.split(r'\n!', f.read())
+        for block in blocks:
+            intf_match = re.search('^interface (\S+)', block, re.MULTILINE)
+            if intf_match and not re.search(r'^\sdescription ', block, re.MULTILINE):
+                result.append(intf_match.group(1))
+
+    return result
+
+
+if __name__ == '__main__':
+    pprint(get_ints_without_description('config_r1.txt'))
