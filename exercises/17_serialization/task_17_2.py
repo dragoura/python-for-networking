@@ -44,8 +44,34 @@
 """
 
 import glob
+import re
+import csv
 
-sh_version_files = glob.glob("sh_vers*")
-# print(sh_version_files)
+
+sh_version_files = glob.glob("sh_version_*")
 
 headers = ["hostname", "ios", "image", "uptime"]
+
+def parse_sh_version(input):
+    regex = re.compile(r'Version (?P<ios>[\d.()A-Z]+).*?'
+                      r'router uptime is (?P<uptime>[\w ,]+).*?'
+                      r'System image file is "(?P<image>\S+)"',
+                      re.DOTALL)
+    match = regex.search(input)
+    return match.groups()
+     
+
+def write_inventory_to_csv(data_filenames, csv_filename):
+    with open(csv_filename, 'w') as output:
+      writer = csv.writer(output)
+      writer.writerow(headers)
+
+      for filename in data_filenames:
+          with open(filename) as f:
+              host = re.search(r'_(\S+).', filename).groups(1)
+              info = parse_sh_version(f.read())
+              writer.writerow(host + info)
+              
+            
+if __name__ == '__main__':
+    write_inventory_to_csv(sh_version_files, 'outputs/routers_inventory.csv')

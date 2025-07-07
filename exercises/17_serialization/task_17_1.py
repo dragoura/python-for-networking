@@ -31,3 +31,31 @@ sw3,00:E9:22:11:A6:50,100.1.1.7,3,FastEthernet0/21
 sw2_dhcp_snooping.txt, sw3_dhcp_snooping.txt.
 
 """
+import csv
+import re
+import glob
+
+
+def write_dhcp_shooping_to_csv(filename, output):
+    regex = re.compile(
+        r'(?P<mac>\S+) +'
+        r'(?P<ip>\S+) +'
+        r'\d+ +\S+ +'
+        r'(?P<vlan>\d+) +'
+        r'(?P<interface>\S+)')
+    
+    with open(output, 'w') as dest:
+        writer = csv.writer(dest)
+        writer.writerow(['switch', 'mac', 'ip', 'vlan', 'interface'])
+        
+        for filename in filenames:
+            switch = filename.split('_')[0]
+            with open(filename) as f:
+                match_iter = re.finditer(regex, f.read())
+                for m in match_iter:
+                    writer.writerow((switch,) + m.groups())
+
+    
+if __name__ == '__main__':
+    filenames = glob.glob('*_dhcp_snooping.txt')
+    write_dhcp_shooping_to_csv(filenames, 'outputs/dhcp_snooping.csv')

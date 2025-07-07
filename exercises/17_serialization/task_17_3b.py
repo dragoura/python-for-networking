@@ -43,3 +43,26 @@
 > pip install graphviz
 
 """
+import yaml
+from draw_network_graph import draw_topology
+
+
+def transform_topology(filename):
+    with open(filename) as f:
+        yaml_dict = yaml.safe_load(f)
+    
+    unique_topology = {}
+    for l_device, link in yaml_dict.items():
+        for l_intf, values in link.items():
+            for r_device, r_intf in values.items():
+                local = (l_device, l_intf)
+                remote = (r_device, r_intf)
+                if not unique_topology.get(remote) == local:
+                    unique_topology[local] = remote
+
+    return unique_topology
+
+
+if __name__ == '__main__':
+    unique_topology = transform_topology('outputs/topology.yaml')
+    draw_topology(unique_topology, 'outputs/topology')
