@@ -36,7 +36,7 @@ import re
 import glob
 
 
-def write_dhcp_shooping_to_csv(filename, output):
+def write_dhcp_snooping_to_csv(filenames, output):
     regex = re.compile(
         r'(?P<mac>\S+) +'
         r'(?P<ip>\S+) +'
@@ -58,4 +58,4 @@ def write_dhcp_shooping_to_csv(filename, output):
     
 if __name__ == '__main__':
     filenames = glob.glob('*_dhcp_snooping.txt')
-    write_dhcp_shooping_to_csv(filenames, 'outputs/dhcp_snooping.csv')
+    write_dhcp_snooping_to_csv(filenames, 'outputs/dhcp_snooping.csv')

@@ -58,7 +58,7 @@ def parse_sh_version(input):
                       r'System image file is "(?P<image>\S+)"',
                       re.DOTALL)
     match = regex.search(input)
-    return match.groups()
+    return match.group('ios', 'image', 'uptime')
      
 
 def write_inventory_to_csv(data_filenames, csv_filename):
@@ -68,7 +68,7 @@ def write_inventory_to_csv(data_filenames, csv_filename):
 
       for filename in data_filenames:
           with open(filename) as f:
-              host = re.search(r'_(\S+).', filename).groups(1)
+              host = re.search(r'version_(\S+)\.', filename).groups(1)
               info = parse_sh_version(f.read())
               writer.writerow(host + info)
               
