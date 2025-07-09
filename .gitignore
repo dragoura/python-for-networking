@@ -40,3 +40,6 @@ build/
 venv/
 
 tasks.png
+
+# GNS3 logs
+network_scheme/3_routers/project-files/dynamips/
