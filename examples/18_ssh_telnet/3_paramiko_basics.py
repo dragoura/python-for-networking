@@ -38,9 +38,9 @@ def send_show_command(
 
 
 if __name__ == "__main__":
-    devices = ["192.168.100.1", "192.168.100.2", "192.168.100.3"]
+    devices = ["192.168.223.131", "192.168.223.132", "192.168.223.133"]
     commands = ["sh clock", "sh arp"]
     for ip in devices:
         result = send_show_command(ip, "cisco", "cisco", "cisco", commands)
         pprint(result, width=120)
-        break
+        

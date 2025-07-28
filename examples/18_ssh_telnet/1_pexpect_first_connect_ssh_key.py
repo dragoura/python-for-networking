@@ -3,8 +3,8 @@ from pprint import pprint
 import pexpect
 
 
-def send_show_command(ip, username, password, enable, commands):
-    with pexpect.spawn(f"ssh {username}@{ip}", timeout=10, encoding="utf-8") as ssh:
+def send_show_command(sshname, password, enable, commands):
+    with pexpect.spawn(f"ssh {sshname}", timeout=10, encoding="utf-8") as ssh:
         yes_or_password = ssh.expect(["[Pp]assword", "yes/no"])
         if yes_or_password == 1:
             ssh.sendline("yes")
@@ -37,8 +37,8 @@ def send_show_command(ip, username, password, enable, commands):
 
 
 if __name__ == "__main__":
-    devices = ["192.168.100.1", "192.168.100.2", "192.168.100.3"]
+    devices = ["gns3-r1", "gns3-r2", "gns3-r3"]
     commands = ["sh clock", "sh arp"]
-    for ip in devices:
-        result = send_show_command(ip, "cisco", "cisco", "cisco", commands)
+    for sshname in devices:
+        result = send_show_command(sshname, "cisco", "cisco", commands)
         pprint(result, width=120)
