@@ -20,38 +20,6 @@
         "links": [
             {
                 "filters": {},
-                "link_id": "05621f77-d3ce-402e-bae0-71dc9e1823ff",
-                "link_style": {},
-                "nodes": [
-                    {
-                        "adapter_number": 0,
-                        "label": {
-                            "rotation": 0,
-                            "style": "font-family: TypeWriter;font-size: 10.0;font-weight: bold;fill: #000000;fill-opacity: 1.0;",
-                            "text": "e0",
-                            "x": -4,
-                            "y": 14
-                        },
-                        "node_id": "fe2b3389-34d1-4186-8e5b-7279a7f983f7",
-                        "port_number": 0
-                    },
-                    {
-                        "adapter_number": 0,
-                        "label": {
-                            "rotation": 0,
-                            "style": "font-family: TypeWriter;font-size: 10.0;font-weight: bold;fill: #000000;fill-opacity: 1.0;",
-                            "text": "en0",
-                            "x": 159,
-                            "y": 37
-                        },
-                        "node_id": "e3484df6-b732-4d16-a974-a33b22957a88",
-                        "port_number": 4
-                    }
-                ],
-                "suspend": false
-            },
-            {
-                "filters": {},
                 "link_id": "e4898711-229b-43d2-bacf-79f576b6ba34",
                 "link_style": {},
                 "nodes": [
@@ -145,6 +113,38 @@
                     }
                 ],
                 "suspend": false
+            },
+            {
+                "filters": {},
+                "link_id": "e3558a4f-66b3-4f61-8b8b-1b9827206e5a",
+                "link_style": {},
+                "nodes": [
+                    {
+                        "adapter_number": 0,
+                        "label": {
+                            "rotation": 0,
+                            "style": "font-family: TypeWriter;font-size: 10.0;font-weight: bold;fill: #000000;fill-opacity: 1.0;",
+                            "text": "bridge101",
+                            "x": 159,
+                            "y": 36
+                        },
+                        "node_id": "e3484df6-b732-4d16-a974-a33b22957a88",
+                        "port_number": 19
+                    },
+                    {
+                        "adapter_number": 0,
+                        "label": {
+                            "rotation": 0,
+                            "style": "font-family: TypeWriter;font-size: 10.0;font-weight: bold;fill: #000000;fill-opacity: 1.0;",
+                            "text": "e0",
+                            "x": -4,
+                            "y": 15
+                        },
+                        "node_id": "fe2b3389-34d1-4186-8e5b-7279a7f983f7",
+                        "port_number": 0
+                    }
+                ],
+                "suspend": false
             }
         ],
         "nodes": [
@@ -152,7 +152,7 @@
                 "compute_id": "local",
                 "console": null,
                 "console_auto_start": false,
-                "console_type": null,
+                "console_type": "none",
                 "custom_adapters": [],
                 "first_port_name": null,
                 "height": 71,
@@ -193,6 +193,16 @@
                         },
                         {
                             "name": "bridge0",
+                            "special": true,
+                            "type": "ethernet"
+                        },
+                        {
+                            "name": "bridge100",
+                            "special": true,
+                            "type": "ethernet"
+                        },
+                        {
+                            "name": "bridge101",
                             "special": true,
                             "type": "ethernet"
                         },
@@ -268,6 +278,26 @@
                         },
                         {
                             "name": "utun7",
+                            "special": false,
+                            "type": "ethernet"
+                        },
+                        {
+                            "name": "vmenet0",
+                            "special": false,
+                            "type": "ethernet"
+                        },
+                        {
+                            "name": "vmenet1",
+                            "special": false,
+                            "type": "ethernet"
+                        },
+                        {
+                            "name": "vmenet2",
+                            "special": false,
+                            "type": "ethernet"
+                        },
+                        {
+                            "name": "vmenet3",
                             "special": false,
                             "type": "ethernet"
                         }
@@ -380,6 +410,18 @@
                             "name": "utun7",
                             "port_number": 17,
                             "type": "ethernet"
+                        },
+                        {
+                            "interface": "bridge0",
+                            "name": "bridge0",
+                            "port_number": 18,
+                            "type": "ethernet"
+                        },
+                        {
+                            "interface": "bridge101",
+                            "name": "bridge101",
+                            "port_number": 19,
+                            "type": "ethernet"
                         }
                     ],
                     "remote_console_host": "",
@@ -390,8 +432,8 @@
                 "symbol": ":/symbols/cloud.svg",
                 "template_id": "39e257dc-8412-3174-b6b3-0ee3ed6a43e9",
                 "width": 159,
-                "x": -202,
-                "y": -70,
+                "x": -206,
+                "y": -68,
                 "z": 1
             },
             {
