@@ -49,9 +49,54 @@ In [12]: pprint(result)
                         'R1(config)#'})
 
 """
+import re
+import yaml
+from netmiko import (
+    ConnectHandler, 
+    NetmikoTimeoutException,
+    NetmikoAuthenticationException,
+)
+
 
 # списки команд с ошибками и без:
 commands_with_errors = ["logging 0255.255.1", "logging", "a"]
 correct_commands = ["logging buffered 20010", "ip http server"]
 
 commands = commands_with_errors + correct_commands
+
+
+def send_config_commands(device, config_commands, log=True):
+    result_without_errors = {}
+    result_with_errors = {}
+    error_msg = 'Command {} executed with error {} on device {}'
+    regex = r'% (?P<error>.+)'
+
+    if log:
+        print(f'Connecting to {device['host']}...')
+    try:
+        with ConnectHandler(**device) as ssh:
+            ssh.enable()
+            for command in config_commands:
+                result = ssh.send_config_set(command, exit_config_mode=False)
+                match = re.search(regex, result)
+                if match:
+                    print(error_msg.format(command, match.group('error'), ssh.host))
+                    result_with_errors[command] = result
+                    can_continue = input('Continue to perform commands? [y]/n: ')
+                    if can_continue == 'n':
+                        break
+                else:
+                    result_without_errors[command] = result
+            ssh.exit_config_mode()
+        return result_without_errors, result_with_errors
+    except NetmikoAuthenticationException:
+        print(f'Authentication error on {device['host']}')
+    except NetmikoTimeoutException:
+        print(f'Failed to connect to {device['host']}')
+
+if __name__ == '__main__':
+    with open('devices.yaml') as f:
+        devices = yaml.safe_load(f)
+
+    for device in devices:
+        print(send_config_commands(device, commands))
