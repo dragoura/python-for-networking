@@ -1,0 +1,31 @@
+R1#sh ip int br
+Interface                  IP-Address      OK? Method Status                Protocol
+FastEthernet0/0            192.168.223.131 YES NVRAM  up                    up      
+FastEthernet1/0            unassigned      YES NVRAM  administratively down down    
+FastEthernet2/0            unassigned      YES NVRAM  administratively down down    
+Serial3/0                  unassigned      YES NVRAM  administratively down down    
+Serial3/1                  unassigned      YES NVRAM  administratively down down    
+Serial3/2                  unassigned      YES NVRAM  administratively down down    
+Serial3/3                  unassigned      YES NVRAM  administratively down down    
+Serial4/0                  unassigned      YES NVRAM  administratively down down    
+Serial4/1                  unassigned      YES NVRAM  administratively down down    
+Serial4/2                  unassigned      YES NVRAM  administratively down down    
+Serial4/3                  unassigned      YES NVRAM  administratively down down    
+R3#sh arp
+Protocol  Address          Age (min)  Hardware Addr   Type   Interface
+Internet  192.168.223.1           1   167f.ce2a.d765  ARPA   FastEthernet0/0
+Internet  192.168.223.131         0   ca01.0626.0000  ARPA   FastEthernet0/0
+Internet  192.168.223.133         -   ca03.0662.0000  ARPA   FastEthernet0/0
+R2#sh int desc
+Interface                      Status         Protocol Description
+Fa0/0                          up             up       
+Fa1/0                          admin down     down     
+Fa2/0                          admin down     down     
+Se3/0                          admin down     down     
+Se3/1                          admin down     down     
+Se3/2                          admin down     down     
+Se3/3                          admin down     down     
+Se4/0                          admin down     down     
+Se4/1                          admin down     down     
+Se4/2                          admin down     down     
+Se4/3                          admin down     down     

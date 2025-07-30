@@ -105,3 +105,59 @@ R3#
 
 Для выполнения задания можно создавать любые дополнительные функции.
 """
+import yaml
+from concurrent.futures import ThreadPoolExecutor, as_completed
+from netmiko import (
+    ConnectHandler, 
+    NetmikoTimeoutException,
+    NetmikoAuthenticationException,
+)
+
+
+def send_show_command(device, command):
+    try:
+        with ConnectHandler(**device) as ssh:
+            ssh.enable()
+            result = ssh.send_command(command)
+            prompt = ssh.find_prompt()
+        return f'{prompt}{command}\n{result}\n'
+    except (NetmikoAuthenticationException, NetmikoTimeoutException) as error:
+        print(error)
+
+
+def send_config_commands(device, config_commands):
+    try:
+        with ConnectHandler(**device) as ssh:
+            ssh.enable()
+            result = ssh.send_config_set(config_commands)
+            return f'{result}\n'
+    except NetmikoAuthenticationException:
+        print(f'Authentication error on {device['host']}')
+    except NetmikoTimeoutException:
+        print(f'Failed to connect to {device['host']}')
+
+
+def send_commands_to_devices(
+        devices, filename, 
+        *, show=None, config=None, limit=3
+        ):
+    if (show is None and config is None) or (show and config):
+        raise ValueError('You must provide exactly one argument: show or config')
+    command = show if show else config
+    function = send_show_command if show else send_config_commands
+
+    with ThreadPoolExecutor(max_workers=limit) as executor:
+        future_list = [
+            executor.submit(function, device, command)
+            for device in devices
+            ]
+        with open(filename, 'w+') as output:
+          for future in as_completed(future_list):
+              output.write(future.result())
+    
+
+if __name__ == '__main__':
+    with open('devices.yaml') as f:
+        devices = yaml.safe_load(f)
+        commands = ['router ospf 55', 'network 0.0.0.0 255.255.255.255 area 0']
+    send_commands_to_devices(devices, 'outputs/result_19_4.txt', config=commands)

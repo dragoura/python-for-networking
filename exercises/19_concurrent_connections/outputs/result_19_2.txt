@@ -1,0 +1,37 @@
+R1#sh ip int br
+Interface                  IP-Address      OK? Method Status                Protocol
+FastEthernet0/0            192.168.223.131 YES NVRAM  up                    up      
+FastEthernet1/0            unassigned      YES NVRAM  administratively down down    
+FastEthernet2/0            unassigned      YES NVRAM  administratively down down    
+Serial3/0                  unassigned      YES NVRAM  administratively down down    
+Serial3/1                  unassigned      YES NVRAM  administratively down down    
+Serial3/2                  unassigned      YES NVRAM  administratively down down    
+Serial3/3                  unassigned      YES NVRAM  administratively down down    
+Serial4/0                  unassigned      YES NVRAM  administratively down down    
+Serial4/1                  unassigned      YES NVRAM  administratively down down    
+Serial4/2                  unassigned      YES NVRAM  administratively down down    
+Serial4/3                  unassigned      YES NVRAM  administratively down down    R2#sh ip int br
+Interface                  IP-Address      OK? Method Status                Protocol
+FastEthernet0/0            192.168.223.132 YES NVRAM  up                    up      
+FastEthernet1/0            unassigned      YES NVRAM  administratively down down    
+FastEthernet2/0            unassigned      YES NVRAM  administratively down down    
+Serial3/0                  unassigned      YES NVRAM  administratively down down    
+Serial3/1                  unassigned      YES NVRAM  administratively down down    
+Serial3/2                  unassigned      YES NVRAM  administratively down down    
+Serial3/3                  unassigned      YES NVRAM  administratively down down    
+Serial4/0                  unassigned      YES NVRAM  administratively down down    
+Serial4/1                  unassigned      YES NVRAM  administratively down down    
+Serial4/2                  unassigned      YES NVRAM  administratively down down    
+Serial4/3                  unassigned      YES NVRAM  administratively down down    R3#sh ip int br
+Interface                  IP-Address      OK? Method Status                Protocol
+FastEthernet0/0            192.168.223.133 YES NVRAM  up                    up      
+FastEthernet1/0            unassigned      YES NVRAM  administratively down down    
+FastEthernet2/0            unassigned      YES NVRAM  administratively down down    
+Serial3/0                  unassigned      YES NVRAM  administratively down down    
+Serial3/1                  unassigned      YES NVRAM  administratively down down    
+Serial3/2                  unassigned      YES NVRAM  administratively down down    
+Serial3/3                  unassigned      YES NVRAM  administratively down down    
+Serial4/0                  unassigned      YES NVRAM  administratively down down    
+Serial4/1                  unassigned      YES NVRAM  administratively down down    
+Serial4/2                  unassigned      YES NVRAM  administratively down down    
+Serial4/3                  unassigned      YES NVRAM  administratively down down    

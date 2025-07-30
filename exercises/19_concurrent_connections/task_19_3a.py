@@ -51,8 +51,31 @@ O        10.30.0.0/24 [110/20] via 192.168.100.1, 07:12:03, Ethernet0/0
 
 # Этот словарь нужен только для проверки работа кода, в нем можно менять IP-адреса
 # тест берет адреса из файла devices.yaml
+import yaml
+from concurrent.futures import ThreadPoolExecutor, as_completed
+from task_19_3 import send_show
+
+
 commands = {
-    "192.168.100.3": ["sh ip int br", "sh ip route | ex -"],
-    "192.168.100.1": ["sh ip int br", "sh int desc"],
-    "192.168.100.2": ["sh int desc"],
+    "192.168.223.133": ["sh ip int br", "sh ip route"],
+    "192.168.223.131": ["sh ip int br", "sh int desc"],
+    "192.168.223.132": ["sh int desc", 'sh arp'],
 }
+
+
+def send_command_to_devices(devices, commands_dict, filename, limit=3):
+    with ThreadPoolExecutor(max_workers=limit) as executor:
+        future_list = [
+            executor.submit(send_show, device, command)
+            for device in devices
+            for command in commands_dict[device['host']]
+            ]
+        with open(filename, 'w+') as output:
+          for future in as_completed(future_list):
+              output.write(future.result())
+
+
+if __name__ == '__main__':
+    with open('devices.yaml') as f:
+        devices = yaml.safe_load(f)
+    send_command_to_devices(devices, commands, 'outputs/result_19_3a.txt')
