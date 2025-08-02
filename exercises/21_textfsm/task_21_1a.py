@@ -21,13 +21,21 @@ from netmiko import ConnectHandler
 from pprint import pprint
 
 
+# def parse_output_to_dict(template, command_output):
+#     with open(template) as templ:
+#         fsm = textfsm.TextFSM(templ)
+#         parsed_output = fsm.ParseText(command_output)
+#     header = fsm.header
+#     result = [dict(zip(header, line)) for line in parsed_output]
+#     return result
+
+
+# with ParseToDict
 def parse_output_to_dict(template, command_output):
     with open(template) as templ:
         fsm = textfsm.TextFSM(templ)
-        parsed_output = fsm.ParseText(command_output)
-    header = fsm.header
-    result = [dict(zip(header, line)) for line in parsed_output]
-    return result
+        parsed_output = fsm.ParseTextToDicts(command_output)
+    return parsed_output
 
 
 if __name__ == "__main__":
