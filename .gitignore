@@ -38,6 +38,7 @@ build/
 
 # Virtual environments
 venv/
+exercises/22_oop_basics/venv_telnet/
 
 tasks.png
 
