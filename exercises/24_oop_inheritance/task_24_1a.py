@@ -26,5 +26,24 @@ In [4]: r1.send_show_command('sh ip int br')
 Out[4]: 'Interface                  IP-Address      OK? Method Status                Protocol\nEthernet0/0                192.168.100.1   YES NVRAM  up                    up      \nEthernet0/1                192.168.200.1   YES NVRAM  up                    up      \nEthernet0/2                190.16.200.1    YES NVRAM  up                    up      \nEthernet0/3                192.168.230.1   YES NVRAM  up                    up      \nEthernet0/3.100            10.100.0.1      YES NVRAM  up                    up      \nEthernet0/3.200            10.200.0.1      YES NVRAM  up                    up      \nEthernet0/3.300            10.30.0.1       YES NVRAM  up                    up      '
 
 """
+import getpass
+from base_connect_class import BaseSSH
+from pprint import pprint
 
-device_params = {"device_type": "cisco_ios", "host": "192.168.100.1"}
+
+class CiscoSSH(BaseSSH):
+    def __init__(self, **device_params):
+        if device_params.get('username') is None:
+            device_params['username'] = input('Введите имя пользователя: ')
+        if device_params.get('password') is None:
+            device_params['password'] = getpass.getpass('Введите пароль: ')
+        if device_params.get('secret') is None:
+            device_params['secret'] = getpass.getpass('Введите пароль для режима enable: ')
+        super().__init__(**device_params)
+        self.ssh.enable()
+
+
+if __name__ == '__main__':
+    device_params = {"device_type": "cisco_ios", "host": "192.168.223.131"}
+    r1 = CiscoSSH(**device_params)
+    pprint(r1.send_show_command('show ip int br'))
