@@ -53,38 +53,38 @@ from pprint import pprint
 
 
 class CiscoTelnet:
-  def __init__(self, ip, username, password, secret):
-    self.telnet = telnetlib.Telnet(ip)
-    self.telnet.read_until(b'Username')
-    self._write_line(username)
-    self.telnet.read_until(b'Password')
-    self._write_line(password)
-    self._write_line('enable')
-    self.telnet.read_until(b'Password')
-    self._write_line(secret)
-    self._write_line('terminal length 0')
-    time.sleep(1)
-    self.telnet.read_very_eager()
-        
-
-  def _write_line(self, line):
-    self.telnet.write(f'{line}\n'.encode('utf-8')) 
+    def __init__(self, ip, username, password, secret):
+        self.telnet = telnetlib.Telnet(ip)
+        self.telnet.read_until(b'Username')
+        self._write_line(username)
+        self.telnet.read_until(b'Password')
+        self._write_line(password)
+        self._write_line('enable')
+        self.telnet.read_until(b'Password')
+        self._write_line(secret)
+        self._write_line('terminal length 0')
+        time.sleep(1)
+        self.telnet.read_very_eager()
     
-
-  def send_show_command(self, command):
-    self._write_line(command)
-    time.sleep(1)
-    output = self.telnet.read_very_eager().decode('utf-8')
-    return output
+    
+    def _write_line(self, line):
+        self.telnet.write(f'{line}\n'.encode('utf-8')) 
+    
+    
+    def send_show_command(self, command):
+        self._write_line(command)
+        time.sleep(1)
+        output = self.telnet.read_very_eager().decode('utf-8')
+        return output
 
 
 if __name__ == '__main__':
     r1_params = {
-       'ip': '192.168.223.131',
-       'username': 'cisco',
-       'password': 'cisco',
-       'secret': 'cisco'
-       }
+        'ip': '192.168.223.131',
+        'username': 'cisco',
+        'password': 'cisco',
+        'secret': 'cisco'
+    }
     
     r1 = CiscoTelnet(**r1_params)
     pprint(r1.send_show_command('sh ip int br'))
