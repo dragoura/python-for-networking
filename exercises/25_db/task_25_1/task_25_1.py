@@ -81,3 +81,33 @@ $ python add_data.py
 Часть кода может быть глобальной.
 
 """
+import add_data
+import create_db
+import glob
+import os
+import sqlite3
+from pprint import pprint
+
+
+def show_db_data(db_filename, table_name):
+    db_exists = os.path.exists(db_filename)
+    if not db_exists:
+        print('База данных не существует. Перед чтением данных, ее надо создать')
+        return
+    connection  = sqlite3.connect(db_filename)
+    query = f'SELECT * from {table_name}'
+    result = [row for row in connection.execute(query)]
+    connection.close()
+    pprint(result)
+
+
+if __name__ == '__main__':
+    db_filename = 'main_snooping.db'
+    schema_filename = 'dhcp_snooping_schema.sql'
+    switch_filename = 'switches.yml'
+    dhcp_files = glob.glob('*_dhcp_snooping.txt')
+    create_db.create_schema(db_filename, schema_filename)
+    add_data.add_switches(db_filename, switch_filename)
+    add_data.add_dhcp_snooping(db_filename, dhcp_files)
+    show_db_data(db_filename, 'switches')
+    show_db_data(db_filename, 'dhcp')
