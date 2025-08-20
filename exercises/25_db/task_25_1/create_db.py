@@ -1,6 +1,7 @@
 import os
 import sqlite3
 
+
 def create_schema(db_filename, schema_filename):
     db_exists = os.path.exists(db_filename)
     if db_exists:
@@ -18,3 +19,4 @@ if __name__ == '__main__':
     db_filename = 'dhcp_snooping.db'
     schema_filename = 'dhcp_snooping_schema.sql'
     create_schema(db_filename, schema_filename)
+    

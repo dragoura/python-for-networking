@@ -63,3 +63,10 @@ $ python get_data.py ip vlan 10
 Пожалуйста, введите два или ноль аргументов
 
 """
+import sys
+from get_data import manage_get_func
+
+
+if __name__ == '__main__':
+    db_filename = 'dhcp_snooping.db'
+    manage_get_func(sys.argv[1:], db_filename)

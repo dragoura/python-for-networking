@@ -68,3 +68,10 @@ $ python get_data.py vlan 10
 00:A9:33:44:A6:50  10.1.10.77  10  FastEthernet0/4  sw2  1
 -----------------  ----------  --  ---------------  ---  -
 """
+import sys
+from get_data import manage_get_func
+
+
+if __name__ == "__main__":
+    db_filename = "dhcp_snooping.db"
+    manage_get_func(sys.argv[1:], db_filename)

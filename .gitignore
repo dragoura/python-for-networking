@@ -44,3 +44,6 @@ tasks.png
 
 # GNS3 logs
 network_scheme/3_routers/project-files/dynamips/
+
+# database files
+exercises/25_db/*/*.db
