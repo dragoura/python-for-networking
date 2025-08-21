@@ -38,6 +38,7 @@ def add_switches(db_name, sw_file):
 def add_dhcp_snooping(db_name, snooping_files):
     connection = sqlite3.connect(db_name)
     connection.execute("UPDATE dhcp set active = 0")
+    connection.commit()
     connection.execute("DELETE from dhcp WHERE last_active < datetime('now', '-7 days')")
     connection.commit()
     print("Добавляю данные в таблицу dhcp...")
